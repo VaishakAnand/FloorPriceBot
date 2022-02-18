@@ -6,11 +6,19 @@ let plsStop = false;
 let messageId = null;
 let priceFloor = 1;
 let chatId = process.env.CHAT_ID;
+let count = 0;
 
 const check = async () => {
     try {
         let price = await priceCheckFn();
         console.log("Price:", price);
+
+        if (price == null) {
+            count++;
+        }
+        if (count >= 2) {
+            return;
+        }
 
         let message = `\nRetrieval Time: ${getNormalTime()}\n\n`;
 
@@ -38,7 +46,7 @@ const check = async () => {
                 .catch((err) => console.error(err));
         }
 
-        if (price <= priceFloor) {
+        if (price <= priceFloor && price != null) {
             let alertMessage = `<b>PRICE ALERT</b> @Vforvitagen\nFloor Price: ${price}`;
 
             await bot.telegram

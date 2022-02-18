@@ -19,8 +19,7 @@ const checkPrice = async () => {
         await page.goto('https://opensea.io/collection/gfarm2-nft-1', {
             waitUntil: 'networkidle2',
         });
-
-        let selector = '#main > div > div > div.CollectionHeaderreact__DivContainer-sc-1woywpk-0.leOEIG > div.Blockreact__Block-sc-1xf18x6-0.Flexreact__Flex-sc-1twd32i-0.fZLRIh.jYqxGr > div.Blockreact__Block-sc-1xf18x6-0.hfScwI > div > div:nth-child(3) > a > div > div.Blockreact__Block-sc-1xf18x6-0.Flexreact__Flex-sc-1twd32i-0.elqhCm.jYqxGr.Info--icon > div > span > div';
+        let selector = ".Overflowreact__OverflowContainer-sc-7qr9y8-0.jPSCbX";
         try {
             await page.waitForSelector(selector);
         } catch (error) {
@@ -31,7 +30,7 @@ const checkPrice = async () => {
 
         let val = await page.$$eval(
             selector,
-            (elem) => elem[0].textContent
+            (elem) => elem[2].textContent
         );
 
         await browser.close();
